@@ -16,26 +16,46 @@ n = length(y);
 
 t = [0:1/Fs:(n-1)/Fs];
 fs = [0:1/t(end):(length(t)-1)/t(end)];
+y_fs = abs(fft(y)/n).*2;
 
-figure("Name", "Effect of noise");
-
-subplot(3, 2, 1);
+figure;
+set(gcf,'position', [0,0,800, 600]);
 plot (t, y);
-subplot(3, 2, 2);
-plot (fs, abs(fft(y)));
+title("Input signal");
+xlabel("time [s]");
+ylabel("Magnitude [V]");
 
-sound(y, Fs);
-pause(length(y)/Fs);
+figure;
+set(gcf,'position', [0,0,800, 600]);
+plot (fs(1:60000), y_fs(1:60000));
+title("Frequency spectrum of input signal");
+xlabel("Frequency [Hz]");
+ylabel("Magnitude [V]");
+
+% sound(y, Fs);
+% pause(length(y)/Fs);
 
 [b, a] = butter(20, (4000)/(Fs/2));
 vm = (Ac + y).*cos(wc.*t);
+vm_fs = abs(fft(vm)/n).*2;
 
 [yupper, ylower] = envelope(vm);
 
-subplot(3, 2, 3);
+figure;
+set(gcf,'position', [0,0,800, 600]);
 plot (t, vm);
-subplot(3, 2, 4);
-plot (fs, abs(fft(vm)));
+title("Modulated signal");
+xlabel("Time [s]");
+ylabel("Magnitude [V]");
+
+
+figure;
+set(gcf,'position', [0,0,800, 600]);
+plot (fs(1:60000), vm_fs(1:60000));
+title("Frequency spectrum of modulated signal");
+xlabel("Frequency [Hz]");
+ylabel("Magnitude [V]");
+
 
 vl0 = Ac*cos(wc*t);
 
@@ -43,14 +63,25 @@ vo = vm .* vl0;
 
 vo = filter(b, a, vo);
 vo = (vo - mean(vo))*2;
+vo_fs = abs(fft(vo)/n).*2;
 
-subplot(3, 2, 5);
+figure;
+set(gcf,'position', [0,0,800, 600]);
 plot (t, vo);
-subplot(3, 2, 6);
-plot (fs, abs(fft(vo)));
+title("Demodulated signal with \theta=0^{\circ}");
+xlabel("Time [s]");
+ylabel("Magnitude [V]");
 
-sound(vo, Fs);
-pause(length(y)/Fs);
+
+figure;
+set(gcf,'position', [0,0,800, 600]);
+plot (fs(1:60000), vo_fs(1:60000));
+title("Frequency spectrum of demodulated signal with \theta=0^{\circ}");
+xlabel("Frequency [Hz]");
+ylabel("Magnitude [V]");
+
+% sound(vo, Fs);
+% pause(length(y)/Fs);
 
 vl85 = Ac*cos(wc*t+degtorad(85));
 
@@ -58,14 +89,25 @@ vo = vm .* vl85;
 
 vo = filter(b, a, vo);
 vo = (vo - mean(vo))*2;
+vo_fs = abs(fft(vo)/n).*2;
 
-subplot(3, 2, 5);
+figure;
+set(gcf,'position', [0,0,800, 600]);
 plot (t, vo);
-subplot(3, 2, 6);
-plot (fs, abs(fft(vo)));
+title("Demodulated signal with \theta=85^{\circ}");
+xlabel("Time [s]");
+ylabel("Magnitude [V]");
 
-sound(vo, Fs);
-pause(length(y)/Fs);
+
+figure;
+set(gcf,'position', [0,0,800, 600]);
+plot (fs(1:60000), vo_fs(1:60000));
+title("Frequency spectrum of demodulated signal with \theta=85^{\circ}");
+xlabel("Frequency [Hz]");
+ylabel("Magnitude [V]");
+
+% sound(vo, Fs);
+% pause(length(y)/Fs);
 
 
     
