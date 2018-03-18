@@ -22,8 +22,8 @@ for i = 1:length(sigma)
         text(sigma_squared(i)-0.03, r, [num2str(r), ' dB'], 'HorizontalAlignment', 'right');
         text(sigma_squared(i)-0.03, r-1.5, ['\sigma^2 = ', num2str(sigma_squared(i))], 'HorizontalAlignment', 'right');
     end
-%     sound(x, Fs);
-%     pause(length(x)/Fs);
+    sound(x, Fs);
+    pause(length(x)/Fs);
 end
 hold off;
 title("SNR over \sigma^2");

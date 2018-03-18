@@ -7,11 +7,11 @@ wm = fm*2*pi;
 fc = 100;
 wc = fc*2*pi;
 Ac = 1; %unknown, lets leave it normalized
-t = [0:0.0001:10];
+t = [0:0.001:10];
 n = length(t);
 fs = length(t)/t(end);
 
-sigma_squared = [0.05, 0.1, 0.5, 1];
+sigma_squared = [0, 0.05, 0.1, 0.5, 1];
 sigma = sqrt(sigma_squared);
 
 rmse_figure = figure;

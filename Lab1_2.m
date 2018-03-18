@@ -8,6 +8,9 @@ x = abs(fft(y)/n).*2;
 x = x(0:n/2);
 psd_dB = 20*log10(x);
 
+sound(y, Fs);
+pause (length(y)/Fs);
+
 %part 1
 psd_dB_maxPower = max(psd_dB);
 psd_dB_quarterPower = psd_dB_maxPower - 6;
@@ -47,6 +50,7 @@ y_filtered = filter(b, a, y);
 [psd_y_filtered, w_y_filtered] = periodogram(y_filtered,[],[],Fs);
 psd_y_filtered_dB = 10*log10(psd_y_filtered);
 sound (y_filtered, Fs);
+pause (length(y_filtered)/Fs);
 
 %plotting
 figure;

@@ -7,7 +7,7 @@ fm = 30;
 wm = fm*2*pi;
 Em = [0.1, 0.2, 0.3, 0.4, 0.6, 0.8, 1, 1.5, 2];
 KFM = 140;
-t = 0:0.0001:1;
+t = 0:0.0001:0.3;
 n = length(t);
 fs = n/t(end);
 f = 0:fs/n:fs-(fs/n);
@@ -29,7 +29,7 @@ for i = 1:length(Em)
 
     figure;
     set(gcf,'position', [0,0,800, 600]);
-    stem(f(1:1200), eFM_fs(1:1200));
+    stem(f(1:600), eFM_fs(1:600));
     title(['Frequency spectrum of modulated signal for \beta = ', num2str(B)]);
     xlabel("Frequency [Hz]");
     ylabel("Magnitude [V]");

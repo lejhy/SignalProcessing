@@ -21,8 +21,8 @@ for i = 1:length(bits)
         text(bits(i)-0.03, r, [num2str(r), ' dB'], 'HorizontalAlignment', 'right');
         text(bits(i)-0.1, r-1, [num2str(bits(i)), ' bits'], 'HorizontalAlignment', 'right');
     end
-%     sound(quantized, Fs);
-%     pause(length(quantized)/Fs);
+    sound(quantized, Fs);
+    pause(length(quantized)/Fs);
 end
 hold off;
 title("SNqR over number of bits");
