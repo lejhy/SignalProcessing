@@ -9,7 +9,6 @@ for i = 1:length(sigma)
     x = sigma(i).*randn([N, 1]);
     for j = 1:length(k)
         [r, lags] = xcorr(x, k(j));
-        plot(x);
         figure;
         set(gcf,'position', [0,0,800, 600]);
         stem(lags, r);
@@ -21,7 +20,6 @@ end
 
 x = wgn(N, 1, 0);
 [r, lags] = xcorr(x, 15);
-plot(x);
 figure;
 set(gcf,'position', [0,0,800, 600]);
 stem(lags, r);

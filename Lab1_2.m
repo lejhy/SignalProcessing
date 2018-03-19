@@ -47,8 +47,9 @@ hold off;
 
 [b,a] = butter(4, [psd_dB_quarterPower_F_low, psd_dB_quarterPower_F_high]/(Fs/2), 'bandpass');
 y_filtered = filter(b, a, y);
-[psd_y_filtered, w_y_filtered] = periodogram(y_filtered,[],[],Fs);
-psd_y_filtered_dB = 10*log10(psd_y_filtered);
+psd_y_filtered = abs(fft(y_filtered)/n).*2;
+psd_y_filtered = psd_y_filtered(0:n/2);
+psd_y_filtered_dB = 20*log10(psd_y_filtered);
 sound (y_filtered, Fs);
 pause (length(y_filtered)/Fs);
 
@@ -62,7 +63,7 @@ ylabel("Amplitude [V]");
 
 figure;
 set(gcf,'position', [0,0,800, 600]);
-plot(w_y_filtered, psd_y_filtered_dB);
+plot(f, psd_y_filtered_dB);
 title("Frequency spectrum (filtered)");
 xlabel("Frequency [Hz]");
 ylabel("Power [dB]");
